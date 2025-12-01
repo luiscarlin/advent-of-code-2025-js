@@ -4,17 +4,31 @@ import fs from 'node:fs';
 
 function part1() {
   const lines = fs
-    .readFileSync('./day01/test.in', 'utf8')
+    .readFileSync('./day01/file.in', 'utf8')
     .split('\n')
     .filter(Boolean);
 
-  const nums = lines.map((line) => {
-    const digits = line.match(/\d/g);
+  let currentDial = 50;
+  let zeroCount = 0;
 
-    return Number(digits[0] + digits.at(-1));
-  });
+  for (const line of lines) {
+    const rotation = line[0];
+    const amount = Number(line.slice(1));
 
-  log('part 1', add(...nums));
+    if (rotation === 'L') {
+      currentDial = (((currentDial - amount) % 100) + 100) % 100;
+    }
+
+    if (rotation === 'R') {
+      currentDial = (currentDial + amount) % 100;
+    }
+
+    if (currentDial === 0) {
+      zeroCount += 1;
+    }
+  }
+
+  console.log('part 1', zeroCount);
 }
 
 function part2() {
@@ -23,36 +37,28 @@ function part2() {
     .split('\n')
     .filter(Boolean);
 
-  const nums = lines.map((line) => {
-    const matches = [];
+  let currentDial = 50;
+  let zeroCount = 0;
 
-    for (let i = 0; i < line.length; i++) {
-      if (!isNaN(line[i]) && line[i] !== ' ') {
-        matches.push(line[i]);
-      }
+  for (const line of lines) {
+    const rotation = line[0];
+    const amount = Number(line.slice(1));
 
-      [
-        'one',
-        'two',
-        'three',
-        'four',
-        'five',
-        'six',
-        'seven',
-        'eight',
-        'nine',
-      ].forEach((val, d) => {
-        if (line.slice(i).startsWith(val)) {
-          matches.push((d + 1).toString());
-        }
-      });
+    if (rotation === 'L') {
+      currentDial = (((currentDial - amount) % 100) + 100) % 100;
     }
 
-    return Number(matches[0] + matches.at(-1));
-  });
+    if (rotation === 'R') {
+      currentDial = (currentDial + amount) % 100;
+    }
 
-  log('part 2', add(...nums));
+    if (currentDial === 0) {
+      zeroCount += 1;
+    }
+  }
+
+  console.log('part 2', zeroCount);
 }
 
-part1();
+// part1();
 part2();
