@@ -5,21 +5,37 @@ import fs from 'node:fs';
 function part1() {
   const lines = fs
     .readFileSync('./day02/file.in', 'utf8')
-    .split('\n')
-    .filter(Boolean);
+    .split(',')
+    .filter(Boolean)
+    .map((range) => {
+      const [start, end] = range.split('-').map(Number);
+      return { start, end };
+    });
 
-  const nums = lines.map((line) => {
-    const digits = line.match(/\d/g);
+  let invalidSum = 0;
 
-    return Number(digits[0] + digits.at(-1));
+  lines.forEach(({ start, end }) => {
+    for (let i = start; i <= end; i++) {
+      const numAsString = i.toString();
+
+      const partOne = numAsString.slice(0, numAsString.length / 2);
+      const partTwo = numAsString.slice(
+        numAsString.length / 2,
+        numAsString.length,
+      );
+
+      if (partOne === partTwo) {
+        invalidSum += i;
+      }
+    }
   });
 
-  log('part 1', add(...nums));
+  log('part 1', invalidSum);
 }
 
 function part2() {
   const lines = fs
-    .readFileSync('./day02/file.in', 'utf8')
+    .readFileSync('./day02/test.in', 'utf8')
     .split('\n')
     .filter(Boolean);
 
@@ -55,4 +71,4 @@ function part2() {
 }
 
 part1();
-part2();
+// part2();
