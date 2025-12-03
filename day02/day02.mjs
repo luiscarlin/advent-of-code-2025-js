@@ -4,7 +4,7 @@ import fs from 'node:fs';
 
 function part1() {
   const lines = fs
-    .readFileSync('./day99/file.in', 'utf8')
+    .readFileSync('./day02/file.in', 'utf8')
     .split('\n')
     .filter(Boolean);
 
@@ -19,7 +19,7 @@ function part1() {
 
 function part2() {
   const lines = fs
-    .readFileSync('./day99/file.in', 'utf8')
+    .readFileSync('./day02/file.in', 'utf8')
     .split('\n')
     .filter(Boolean);
 
