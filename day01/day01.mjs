@@ -1,4 +1,3 @@
-import { add } from 'mathjs';
 import { log } from 'node:console';
 import fs from 'node:fs';
 
@@ -28,10 +27,8 @@ function part1() {
     }
   }
 
-  console.log('part 1', zeroCount);
+  log('part 1', zeroCount);
 }
-
-// ...existing code...
 
 function part2() {
   const lines = fs
@@ -81,14 +78,13 @@ function part2() {
       currentDial = (currentDial + amount) % 100;
     }
 
-    // Count if we end exactly at 0
     if (currentDial === 0) {
       zeroCount += 1;
     }
   }
 
-  console.log('part 2', zeroCount);
+  log('part 2', zeroCount);
 }
 
-// part1();
+part1();
 part2();
